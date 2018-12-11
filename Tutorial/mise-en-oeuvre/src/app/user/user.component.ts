@@ -13,7 +13,8 @@ export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterVie
 
   dateFormat = "MM/dd/yy";
   image = 'https://www.starwars-universe.com/images/actualites/collection/sideshow/sideyodalegendary/sideyodalegendary_e.jpg';
-
+  image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+  
   @ViewChild('input') input;
 
   constructor(private renderer: Renderer) { }
