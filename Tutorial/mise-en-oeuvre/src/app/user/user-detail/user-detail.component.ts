@@ -8,7 +8,7 @@ import { User } from '../user';
 })
 export class UserDetailComponent implements OnInit, OnChanges {
 
- 
+  public hello = 'Hello from User-detail-component local variable';
   @Input() user: User;
   @Input('avatar') image: User;
 

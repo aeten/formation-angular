@@ -9,5 +9,6 @@
         </ul>
     </div>
     <!-- Pass parent property selectedUser to child -->
-    <app-user-detail [user]="selectedUser" [avatar]="image" (onAction)="onActionFromUserDetail($event)"></app-user-detail>
+    <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
+    <span>{{ localVar.hello }}</span>
 </div>
