@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
 import { User } from '../user';
 
 @Component({
@@ -18,6 +18,10 @@ export class UserDetailComponent implements OnInit, OnChanges {
   }
   get image2(): string { return this._image2; }
 
+  @Output() onAction = new EventEmitter<string>();
+  action(msg: string) {
+      this.onAction.emit(msg);
+  }
 
   constructor() { }
 
@@ -31,5 +35,6 @@ export class UserDetailComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
   }
+
 
 }

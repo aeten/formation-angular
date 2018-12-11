@@ -27,6 +27,11 @@ export class UserComponent implements OnInit {
     this.selectedUser = JSON.parse(JSON.stringify(user));
   }
 
+  
+  onActionFromUserDetail(msg: string) {
+    console.log(msg);
+  }
+
 }
 
 export const USERS: User[] = [
