@@ -4,11 +4,10 @@
     <div class="col m4">
         <ul>
             <li *ngFor="let user of users" [class.active-line]="selectedUser && selectedUser.id === user.id" (click)="onSelect(user)">
-                <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
+                <span>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
             </li>
         </ul>
-        <button (click)="broadcastParent()">BROADCAST PARENT</button>
     </div>
-    <!-- Pass parent property selectedUser to child -->
-    <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
+
+    <app-user-detail [user]="selectedUser" [avatar]="image"></app-user-detail>
 </div>
