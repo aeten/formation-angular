@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
 
@@ -10,6 +11,9 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     declarations: [
@@ -27,7 +31,11 @@ import { NavbarComponent } from './navbar/navbar.component';
         MzInputModule,
         MzButtonModule,
         MzValidationModule,
-        MzSpinnerModule
+        MzSpinnerModule,
+        TableModule,
+        BreadcrumbModule,
+        DialogModule,
+        BrowserAnimationsModule
 
     ],
     providers: [],

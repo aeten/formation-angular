@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { User } from './user';
 import { UserService } from './user.service';
-
 
 @Component({
     selector: 'app-user',
@@ -9,26 +10,42 @@ import { UserService } from './user.service';
     styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-
-    usersAsync: User[];
+    users: User[];
     selectedUser: User;
 
-    image = 'https://www.starwars-universe.com/images/actualites/collection/sideshow/sideyodalegendary/sideyodalegendary_e.jpg';
-    
-    constructor(private userService: UserService) {}
+    bcItems = [
+        { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+        { label: 'Users', }
+    ];
+
+    cols = [
+        { field: 'id', header: 'ID' },
+        { field: 'firstname', header: 'First Name' },
+        { field: 'lastname', header: 'Last Name' }
+    ];
+
+    constructor(
+        private router: Router,
+        private userService: UserService
+    ) { }
 
     ngOnInit() {
-      this.userService.getUsersAsync()
-      .subscribe(
-          (data: User[]) => this.usersAsync = data,
-          (error) => console.error(error),
-          () => console.log("Complete")
-      );
+        this.getUsers();
     }
 
     onSelect(user: User): void {
         this.selectedUser = user;
     }
-}
 
- 
+    getUsers() {
+        this.userService.getUsers()
+        .subscribe(
+            (data: User[]) => this.users = data,
+            (error) => console.log(error)
+        );
+    }
+
+    detail(user: User) {
+        this.router.navigate(['user', user.id]);
+    }
+}

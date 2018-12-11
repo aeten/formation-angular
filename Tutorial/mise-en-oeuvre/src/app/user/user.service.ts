@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
 import { User } from './user';
 
 export const USERS: User[] = [
@@ -45,23 +46,12 @@ export const USERS: User[] = [
     providedIn: 'root'
 })
 export class UserService {
-    
-    usersAsync: User[];
     constructor() { }
-    
-    getUsersAsync(): Observable<User[]> {
-      return new Observable((observer) => {
-          setTimeout(() => {
-              observer.next(USERS);
-              observer.complete();
-          }, 3000);
-  
-          try {
-              // throw Error("Boom");
-          } catch (e) {
-              observer.error(e);
-          }
-      });
-      // return of(USERS);
+
+    getUsers(): Observable<User[]> {
+      return of(USERS);
+    }
+    getUser(id: number): Observable<User> {
+      return of(USERS.find(user => user.id === id));
   }
 }
