@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, Renderer } from '@angular/core';
-import { User } from './user';
+import { Component, OnInit, AfterViewInit, ViewChild, Renderer } from '@angular/core';
 
+import { User } from './user';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
   
   users: User[];
   selectedUser: User;
@@ -16,6 +17,7 @@ export class UserComponent implements OnInit {
   image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
   
   @ViewChild('input') input;
+  @ViewChild(UserDetailComponent) ud: UserDetailComponent;
 
   constructor(private renderer: Renderer) { }
 
@@ -27,7 +29,11 @@ export class UserComponent implements OnInit {
     this.selectedUser = JSON.parse(JSON.stringify(user));
   }
 
-  
+  ngAfterViewInit() {
+    if (this.ud) {
+    console.log(this.ud.hello);
+    }
+}
   onActionFromUserDetail(msg: string) {
     console.log(msg);
   }
