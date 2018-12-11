@@ -1,44 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './user';
+import { UserService } from './user.service';
 
-export const USERS: User[] = [
-    {
-        id: 1,
-        username: 'test',
-        password: 'pa$$word',
-        email: 'mehdi.mecheri@viveris.fr',
-        firstname: 'Mehdi',
-        lastname: 'Mecheri',
-        birthdate: new Date(2018, 5, 22)
-    },
-    {
-        id: 2,
-        username: 'test',
-        password: 'pa$$word',
-        email: 'lionel.messi@barca.es',
-        firstname: 'Lionel',
-        lastname: 'Messi',
-        birthdate: new Date(2018, 5, 22)
-    },
-    {
-        id: 3,
-        username: 'test',
-        password: 'pa$$word',
-        email: 'cristiano.ronaldo@real.es',
-        firstname: 'Cristiano',
-        lastname: 'Ronaldo',
-        birthdate: new Date(2018, 5, 22)
-    },
-    {
-        id: 4,
-        username: 'test',
-        password: 'pa$$word',
-        email: 'neymar.jr@psg.fr',
-        firstname: 'Neymar',
-        lastname: 'JR',
-        birthdate: new Date(2018, 5, 22)
-    }
-];
 
 @Component({
     selector: 'app-user',
@@ -47,15 +10,20 @@ export const USERS: User[] = [
 })
 export class UserComponent implements OnInit {
 
-    users: User[];
+    usersAsync: User[];
     selectedUser: User;
 
     image = 'https://www.starwars-universe.com/images/actualites/collection/sideshow/sideyodalegendary/sideyodalegendary_e.jpg';
-
-    constructor() {}
+    
+    constructor(private userService: UserService) {}
 
     ngOnInit() {
-        this.users = USERS;
+      this.userService.getUsersAsync()
+      .subscribe(
+          (data: User[]) => this.usersAsync = data,
+          (error) => console.error(error),
+          () => console.log("Complete")
+      );
     }
 
     onSelect(user: User): void {
