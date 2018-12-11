@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -21,7 +23,8 @@ export class UserDetailComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService
+        private userService: UserService,
+        private notifService: NotificationsService
     ) {
         this.user = new User();
     }
@@ -31,11 +34,13 @@ export class UserDetailComponent implements OnInit {
     }
 
     getUser(): void {
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.userService.getUser(id)
-        .subscribe(user => this.user = user);
-    }
-
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.userService.getUser(id)
+      .subscribe(
+          user => this.user = user,
+          error => this.notifService.error('Erreur', error)
+      );
+   }
     cancel() {
         this.router.navigate(['user']);
     }

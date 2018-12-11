@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../user/user';
 import { UserService } from '../../user/user.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
     selector: 'app-user-edit',
@@ -43,20 +44,13 @@ export class UserEditComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private fb: FormBuilder,
-        private userService: UserService
+        private userService: UserService,
+        private notifService: NotificationsService
     ) { }
 
     ngOnInit() {
         this.createForm();
         this.getUser();
-    }
-
-    getUser(): void {
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.userService.getUser(id).subscribe(user => {
-            this.user = user;
-            this.editForm.patchValue(this.user);
-        });
     }
 
     createForm() {
@@ -75,7 +69,25 @@ export class UserEditComponent implements OnInit {
         this.router.navigate(['user']);
     }
 
-    save() {
-        // TODO: call injected userService to save data via http call
-    }
+    getUser(): void {
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.userService.getUser(id)
+      .subscribe(
+          user => {
+              this.user = user;
+              this.editForm.patchValue(this.user);
+          },
+          error => this.notifService.error('Erreur', error)
+      );
+  }
+  
+  save() {
+      this.userService.updateUser(<User>this.editForm.value)
+      .subscribe(
+          resp => {
+              this.notifService.success(null, 'Success', { timeOut: 3000 });
+              setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+          },
+          error => this.notifService.error('Erreur', error));
+  }
 }

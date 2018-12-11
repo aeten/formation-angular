@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
 
@@ -17,6 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 import { UserNewComponent } from './user/user-new/user-new.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
         BreadcrumbModule,
         DialogModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
+        SimpleNotificationsModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

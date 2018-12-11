@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, Valid
 import { Router } from '@angular/router';
 
 import { UserService } from './../../user/user.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
     selector: 'app-user-new',
@@ -41,7 +42,8 @@ export class UserNewComponent implements OnInit {
     constructor(
         private router: Router,
         private fb: FormBuilder,
-        private userService: UserService
+        private userService: UserService,
+        private notifService: NotificationsService
     ) { }
 
     ngOnInit() {
@@ -64,9 +66,15 @@ export class UserNewComponent implements OnInit {
     }
 
     save() {
-        // TODO: call injected userService to save data via http call
-    }
-}
+      this.userService.createUser(this.creationForm.value)
+      .subscribe(
+          resp => {
+              this.notifService.success(null, 'Success', { timeOut: 3000 });
+              setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+          },
+          error => this.notifService.error('Erreur', error)
+      );
+  }}
 
 export function forbiddenValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
