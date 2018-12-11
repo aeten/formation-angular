@@ -7,8 +7,8 @@
                 <span appHighlight>{{user.id}} - {{user.firstname}} {{user.lastname}} </span>
             </li>
         </ul>
+        <button (click)="broadcastParent()">BROADCAST PARENT</button>
     </div>
     <!-- Pass parent property selectedUser to child -->
     <app-user-detail #localVar [user]="selectedUser" [avatar]="image"></app-user-detail>
-    <span>{{ localVar.hello }}</span>
 </div>

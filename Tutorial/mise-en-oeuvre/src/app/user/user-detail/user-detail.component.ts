@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Interaction07Service } from '../../interaction07.service';
 import { User } from '../user';
 
 @Component({
@@ -6,7 +8,7 @@ import { User } from '../user';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit, OnChanges {
+export class UserDetailComponent implements OnChanges, OnInit, OnDestroy {
 
   public hello = 'Hello from User-detail-component local variable';
   @Input() user: User;
@@ -23,7 +25,18 @@ export class UserDetailComponent implements OnInit, OnChanges {
       this.onAction.emit(msg);
   }
 
-  constructor() { }
+  private subscription: Subscription;
+  constructor(private service: Interaction07Service) {
+      this.subscription = service.broadcastParentStream$.subscribe((dataFromParent) => console.log(dataFromParent));
+  }
+  
+  broadcastChild() {
+      this.service.broadcastChild('Hello from child');
+  }
+
+  ngOnDestroy() {
+      this.subscription.unsubscribe(); // prevent memory leak
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {

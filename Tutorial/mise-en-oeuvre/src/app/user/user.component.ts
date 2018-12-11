@@ -1,44 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Renderer } from '@angular/core';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Interaction07Service } from '../interaction07.service';
 import { User } from './user';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-@Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
-})
-export class UserComponent implements OnInit, AfterViewInit {
-  
-  users: User[];
-  selectedUser: User;
-
-  dateFormat = "MM/dd/yy";
-  image = 'https://www.starwars-universe.com/images/actualites/collection/sideshow/sideyodalegendary/sideyodalegendary_e.jpg';
-  image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
-  
-  @ViewChild('input') input;
-  @ViewChild(UserDetailComponent) ud: UserDetailComponent;
-
-  constructor(private renderer: Renderer) { }
-
-  ngOnInit() {
-    this.users = USERS;
-    console.log('---> OnInit fires <---');
-  }
-  onSelect(user: User): void {
-    this.selectedUser = JSON.parse(JSON.stringify(user));
-  }
-
-  ngAfterViewInit() {
-    if (this.ud) {
-    console.log(this.ud.hello);
-    }
-}
-  onActionFromUserDetail(msg: string) {
-    console.log(msg);
-  }
-
-}
+import { Subscription } from 'rxjs';
 
 export const USERS: User[] = [
   {
@@ -70,3 +33,41 @@ export const USERS: User[] = [
       birthdate: new Date(2018, 5, 22)
   }
 ];
+
+@Component({
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
+})
+export class UserComponent implements OnInit, OnDestroy {
+  
+  users: User[];
+  selectedUser: User;
+
+  dateFormat = "MM/dd/yy";
+  image = 'https://www.starwars-universe.com/images/actualites/collection/sideshow/sideyodalegendary/sideyodalegendary_e.jpg';
+  image2 = '               https://assets-cdn.github.com/images/icons/emoji/unicode/1f471.png?v8';
+  
+
+  // service will be private menmer (see private keyword)
+  subscription: Subscription;
+  constructor(private service: Interaction07Service) {
+    this.subscription = service.broadcastChildStream$.subscribe((dataFromChild) => console.log(dataFromChild));
+  }
+
+  broadcastParent() {
+    this.service.broadcastParent('Hello from parent');
+  }
+
+  ngOnInit() {
+    this.users = USERS;
+    console.log('---> OnInit fires <---');
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+  onSelect(user: User): void {
+    this.selectedUser = JSON.parse(JSON.stringify(user));
+  }
+
+}
