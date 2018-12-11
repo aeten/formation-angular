@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy, ViewChild, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer } from '@angular/core';
 import { User } from './user';
 
 @Component({
@@ -6,7 +6,7 @@ import { User } from './user';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class UserComponent implements OnInit {
   
   users: User[];
   selectedUser: User;
@@ -18,20 +18,6 @@ export class UserComponent implements OnChanges, OnInit, AfterViewInit, AfterVie
   @ViewChild('input') input;
 
   constructor(private renderer: Renderer) { }
-
-  ngAfterViewInit() {
-      console.log('---> AfterViewInit fires <---');
-      this.renderer.invokeElementMethod(this.input.nativeElement, 'focus');
-  }
-  ngOnChanges(changes: import("c:/Users/Angular/formation-angular/formation-angular/Tutorial/mise-en-oeuvre/node_modules/@angular/core/src/metadata/lifecycle_hooks").SimpleChanges): void {
-    throw new Error("Method not implemented.");
-  }
-  ngAfterViewChecked(): void {
-    throw new Error("Method not implemented.");
-  }
-  ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
-  }
 
   ngOnInit() {
     this.users = USERS;

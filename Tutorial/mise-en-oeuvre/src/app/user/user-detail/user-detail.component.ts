@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { User } from '../user';
 
 @Component({
@@ -6,12 +6,13 @@ import { User } from '../user';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnChanges {
 
-  private _image2 = '';
-
+ 
   @Input() user: User;
   @Input('avatar') image: User;
+
+  private _image2 = '';
   @Input('avatar2') set image2(data: string) {
     this._image2 = (data && data.trim()) || '<no data found>';
   }
@@ -20,6 +21,14 @@ export class UserDetailComponent implements OnInit {
 
   constructor() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      let chng = changes[propName];
+      let cur = JSON.stringify(chng.currentValue);
+      let prev = JSON.stringify(chng.previousValue);
+      console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+    }
+  }
   ngOnInit() {
   }
 
