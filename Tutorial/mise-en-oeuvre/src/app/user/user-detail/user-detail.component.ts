@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -12,10 +12,19 @@ import { UserService } from '../user.service';
 export class UserDetailComponent implements OnInit {
     user: User;
 
+    bcItems = [
+        { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
+        { label: 'Users', routerLink: '/user' },
+        { label: 'User Details' }
+    ];
+
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private userService: UserService
-    ) { }
+    ) {
+        this.user = new User();
+    }
 
     ngOnInit() {
         this.getUser();
@@ -24,6 +33,14 @@ export class UserDetailComponent implements OnInit {
     getUser(): void {
         const id = +this.route.snapshot.paramMap.get('id');
         this.userService.getUser(id)
-            .subscribe(user => this.user = user);
+        .subscribe(user => this.user = user);
+    }
+
+    cancel() {
+        this.router.navigate(['user']);
+    }
+
+    edit() {
+        this.router.navigate(['user', 'edit', +this.user.id]);
     }
 }
