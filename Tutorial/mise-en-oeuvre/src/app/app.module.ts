@@ -2,23 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { MzNavbarModule, MzInputModule, MzButtonModule, MzValidationModule, MzSpinnerModule } from 'ngx-materialize';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DialogModule } from 'primeng/dialog';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { HomeComponent } from './home/home.component';
-import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { TableModule } from 'primeng/table';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { DialogModule } from 'primeng/dialog';
 import { UserNewComponent } from './user/user-new/user-new.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
     declarations: [
@@ -34,6 +34,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        CoreModule,
         AppRoutingModule,
         MzNavbarModule,
         MzInputModule,
@@ -43,9 +46,6 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
         TableModule,
         BreadcrumbModule,
         DialogModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
         SimpleNotificationsModule.forRoot()
     ],
     providers: [],
