@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as Hjson from 'hjson';
 import { Logger } from './logger.service';
+import { environment } from 'src/environments/environment';
 
 // export const Hjson = require('hjson');
 /**
@@ -57,7 +58,7 @@ export class SettingsService {
             .append('Cache-Control', 'no-cache')
             .append('Pragma', 'no-cache');
 
-        this.http.get(`resources/settings.hjson`, { headers: headers, responseType: 'text' }).subscribe(
+        this.http.get(`resources/settings.${environment.envName}.hjson`, { headers: headers, responseType: 'text' }).subscribe(
             res => this._config = Hjson.parse(res),
             (error) => { throw error; },
             () => this.logger.trace('Settings loaded')
