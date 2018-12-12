@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UserNewComponent } from './user-new/user-new.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UserNewComponent } from './components/user-new/user-new.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 const userRoutes: Routes = [
     { path: '', component: UserComponent },
