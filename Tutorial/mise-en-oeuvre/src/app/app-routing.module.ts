@@ -4,13 +4,18 @@ import { AuthGuard } from './core/services/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: './features/index/index.module#IndexModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'home',
-    loadChildren: './features/home/home.module#HomeModule',
+    loadChildren: './features/index/home/home.module#HomeModule',
     canActivate: [AuthGuard]
   },
   {
     path: 'user',
-    loadChildren: './features/user/user.module#UserModule',
+    loadChildren: './features/index/user/user.module#UserModule',
     canActivate: [AuthGuard]
   },
   {
