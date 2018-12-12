@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { User } from '../../user/user';
-import { UserService } from '../../user/user.service';
+
 import { NotificationsService } from 'angular2-notifications';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-user-edit',

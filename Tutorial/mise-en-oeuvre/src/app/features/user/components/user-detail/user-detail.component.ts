@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
-import { User } from '../user';
-import { UserService } from '../user.service';
 
 @Component({
     selector: 'app-user-detail',

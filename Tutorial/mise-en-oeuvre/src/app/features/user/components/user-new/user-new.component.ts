@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UserService } from './../../user/user.service';
 import { NotificationsService } from 'angular2-notifications';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-user-new',

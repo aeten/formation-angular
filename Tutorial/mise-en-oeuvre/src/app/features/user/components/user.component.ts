@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from './user';
-import { UserService } from './user.service';
+
 import { NotificationsService } from 'angular2-notifications';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-user',

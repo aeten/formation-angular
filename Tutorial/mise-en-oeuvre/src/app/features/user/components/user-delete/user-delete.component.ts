@@ -1,7 +1,8 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { User } from '../user';
-import { UserService } from '../user.service';
+
 import { NotificationsService } from 'angular2-notifications';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-user-delete',
