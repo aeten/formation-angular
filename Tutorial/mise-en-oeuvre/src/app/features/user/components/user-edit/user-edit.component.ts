@@ -13,8 +13,9 @@ import { UserService } from '../../services/user.service';
     styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-    user: User;
-    editForm: FormGroup;
+    public user: User;
+    public editForm: FormGroup;
+    public isFormSaved: boolean;
 
     bcItems = [
         { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
@@ -83,12 +84,12 @@ export class UserEditComponent implements OnInit {
   }
   
   save() {
-      this.userService.updateUser(<User>this.editForm.value)
-      .subscribe(
-          resp => {
-              this.notifService.success(null, 'Success', { timeOut: 3000 });
-              setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
-          },
-          error => this.notifService.error('Erreur', error));
-  }
+    this.userService.updateUser(<User>this.editForm.value).subscribe(
+        resp => {
+        this.isFormSaved = true;
+        this.notifService.success(null, 'Success', { timeOut: 3000 });
+        setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+        }
+    );
+}
 }

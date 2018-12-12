@@ -11,7 +11,8 @@ import { UserService } from '../../services/user.service';
     styleUrls: ['./user-new.component.scss']
 })
 export class UserNewComponent implements OnInit {
-    creationForm: FormGroup;
+    public creationForm: FormGroup;
+    public isFormSaved: boolean;
 
     bcItems = [
         { label: 'Home', routerLink: '/home', icon: 'pi pi-home' },
@@ -66,15 +67,16 @@ export class UserNewComponent implements OnInit {
     }
 
     save() {
-      this.userService.createUser(this.creationForm.value)
-      .subscribe(
-          resp => {
-              this.notifService.success(null, 'Success', { timeOut: 3000 });
-              setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
-          },
-          error => this.notifService.error('Erreur', error)
-      );
-  }}
+        this.userService.createUser(this.creationForm.value)
+        .subscribe(
+            resp => {
+            this.isFormSaved = true;
+            this.notifService.success(null, 'Success', { timeOut: 3000 });
+            setTimeout(() => this.router.navigate(['user', resp.id]), 3000);
+            }
+        );
+    }
+}
 
 export function forbiddenValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
